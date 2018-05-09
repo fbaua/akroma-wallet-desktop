@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Wallet } from '../../wallet';
+import { Wallet } from '../../models/wallet';
 
 @Component({
   selector: 'app-wallet',

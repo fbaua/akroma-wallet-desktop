@@ -24,6 +24,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { SplashComponent } from './components/splash/splash.component';
 import { WalletComponent } from './components/wallet/wallet.component';
+import { WalletListComponent } from './components/wallet-list/wallet-list.component';
 import { TransactionListComponent } from './components/transaction-list/transaction-list.component';
 import { Web3Service } from './providers/web3.service';
 import { TransactionsPersistenceService } from './providers/transactions-persistence.service';
@@ -42,6 +43,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     SplashComponent,
     WalletComponent,
     TransactionListComponent,
+    WalletListComponent,
   ],
   imports: [
     RouterModule,

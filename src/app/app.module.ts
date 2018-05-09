@@ -23,6 +23,7 @@ import { WebviewDirective } from './directives/webview.directive';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { SplashComponent } from './components/splash/splash.component';
+import { WalletComponent } from './components/wallet/wallet.component';
 import { Web3Service } from './providers/web3.service';
 import { TransactionsPersistenceService } from './providers/transactions-persistence.service';
 import { TransactionsService } from './providers/transactions.service';
@@ -38,6 +39,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     HomeComponent,
     WebviewDirective,
     SplashComponent,
+    WalletComponent,
   ],
   imports: [
     RouterModule,

@@ -21,8 +21,8 @@ import { ElectronService } from './providers/electron.service';
 import { WebviewDirective } from './directives/webview.directive';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.component';
-import { SplashComponent } from './components/splash/splash.component';
+import { SplashPageComponent } from './pages/splash/splash-page.component';
+import { WalletDetailPageComponent } from './pages/wallet-detail/wallet-detail-page.component';
 import { WalletComponent } from './components/wallet/wallet.component';
 import { WalletListComponent } from './components/wallet-list/wallet-list.component';
 import { TransactionListComponent } from './components/transaction-list/transaction-list.component';
@@ -39,11 +39,11 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     AppComponent,
     WebviewDirective,
-    SplashComponent,
+    SplashPageComponent,
+    WalletDetailPageComponent,
     WalletComponent,
     TransactionListComponent,
     WalletListComponent,
-    WalletDetailComponent,
   ],
   imports: [
     RouterModule,

@@ -17,12 +17,12 @@ export function getProgressbarConfig(): ProgressbarConfig {
 }
 
 @Component({
-  selector: 'app-splash',
-  templateUrl: './splash.component.html',
-  styleUrls: ['./splash.component.scss'],
+  selector: 'app-splash-page',
+  templateUrl: './splash-page.component.html',
+  styleUrls: ['./splash-page.component.scss'],
   providers: [{ provide: ProgressbarConfig, useFactory: getProgressbarConfig }]
 })
-export class SplashComponent implements OnDestroy, OnInit {
+export class SplashPageComponent implements OnDestroy, OnInit {
   lastPercentageSynced: number;
   isSyncing: boolean | any;
   isListening: boolean;

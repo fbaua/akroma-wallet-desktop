@@ -1,4 +1,66 @@
-transaction {
-    background-color: rgba(255, 255, 255, 0.4);
+.filters {
+    width: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+    display: flex;
+    align-items: baseline;
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    a {
+        font-size: 18px;
+        color: #fff;
+        opacity: 0.6;
+        text-decoration: none;
+
+        &:active, &:hover {
+            opacity: 1;
+        }
+    }
+}
+
+.transaction {
+    background-color: rgba(255, 255, 255, 0.3);
     color: #fff;
+    padding: 12px 14px;
+
+    > .value {
+        font-weight: 200;
+        font-size: 36px;
+        line-height: 42px;
+
+        > .unit-badge {
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 3px 6px;
+        }
+    }
+
+    > .timestamp {
+        font-size: 15px;
+    }
+}
+
+.to, .toAddress, .from, .fromAddress {
+    margin-top: 2px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 4px 8px;
+}
+
+.toAddress, .fromAddress {
+    font-weight: 400;
+}
+
+.to, .from {
+    margin-right: 2px;
+    font-weight: 500;
+}
+
+.address {
+    display: flex;
 }

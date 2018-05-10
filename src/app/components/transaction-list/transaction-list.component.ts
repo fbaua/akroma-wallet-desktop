@@ -22,6 +22,8 @@ export class TransactionListComponent implements OnInit {
     value: '0.1337'
   };
 
+  timestamp: string = new Date().toLocaleDateString('en-GB', { timeZone: 'UTC' });
+
   constructor() { }
 
   ngOnInit() {

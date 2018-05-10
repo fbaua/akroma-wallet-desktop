@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { TransactionsService } from '../../providers/transactions.service';
+import { Transaction } from 'web3/types';
 
 @Component({
   selector: 'app-wallet-detail-page',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./wallet-detail-page.component.scss']
 })
 export class WalletDetailPageComponent implements OnInit {
+  transactions: Transaction[];
 
-  constructor() { }
+  constructor(private transactionsService: TransactionsService) {
+    this.transactionsService.setProvider(new this.transactionsService.providers.HttpProvider('http://localhost:8545'));
+   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.transactions = await this.transactionsService.getTransactionsByAccount('*', null, null);
   }
 
 }

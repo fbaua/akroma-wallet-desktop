@@ -21,7 +21,7 @@ module.exports = {
         console.info('[Starting Akroma client...]');
         const process = spawn(clientPath + path.sep + clientBin, [
             '--datadir', clientPath + path.sep + '.akroma', '--syncmode', 'fast',
-            '--cache', '1024', '--rpc', '--rpccorsdomain', '"http://localhost:*"', '--rpcport', '8545', '--rpcapi', 'eth,web3,admin,net,personal',
+            '--cache', '1024', '--rpc', '--rpccorsdomain', '*', '--rpcport', '8545', '--rpcapi', 'eth,web3,admin,net,personal',
         ]);
         module.exports.clientProcess = process;
         module.exports.status = module.exports.constants.RUNNING;

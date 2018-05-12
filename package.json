@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "adm-zip": "^0.4.9",
+    "bignumber.js": "^7.0.1",
     "ngx-bootstrap": "^2.0.5",
     "pouchdb-browser": "^6.4.3",
     "request": "^2.85.0",

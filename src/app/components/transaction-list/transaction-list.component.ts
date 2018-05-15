@@ -9,7 +9,6 @@ import { Transaction } from 'web3/types';
 export class TransactionListComponent implements OnInit {
   @Input() transactions: Transaction[];
 
-
   timestamp: string = new Date().toLocaleDateString('en-GB', { timeZone: 'UTC' });
 
   constructor() { }

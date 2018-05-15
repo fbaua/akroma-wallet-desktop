@@ -1,24 +1,27 @@
 .filters {
     width: 100%;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
     display: flex;
-    align-items: baseline;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    height: 33px;
 
-    ul {
-        list-style-type: none;
-        padding: 0;
-    }
-
-    a {
+    .filter-type {
+        height: 33px;
         font-size: 18px;
         color: #fff;
         opacity: 0.6;
         text-decoration: none;
+        padding: 0 6px;
 
-        &:active, &:hover {
+        &:hover, &:active, &[selected] {
             opacity: 1;
+            border-bottom: 2px solid #fff;
         }
     }
+}
+
+.transactions {
+    margin: 14px;
+    overflow-y: scroll;
 }
 
 .transaction {

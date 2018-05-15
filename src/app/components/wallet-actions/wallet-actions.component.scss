@@ -1,21 +1,14 @@
 .wallet-actions {
-    ul {
-        list-style-type: none;
-        display: flex;
-        justify-content: space-between;
-        width: 70%;
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
 
-        > li {
-            flex: 0 0 20px;
-        }
-    }
-
-    a {
+    a.action {
         display: flex;
         flex-direction: column;
         font-size: 18px;
         font-weight: 200;
-        letter-spacing: 0.5px;
+        letter-spacing: 1px;
         color: #fff;
 
         > img {

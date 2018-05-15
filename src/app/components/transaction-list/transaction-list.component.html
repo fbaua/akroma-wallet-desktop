@@ -1,13 +1,11 @@
 <div class="transaction-list">
   <div class="filters">
-    <ul>
-      <li><a href="">All</a></li>
-      <li><a href="">Sent</a></li>
-      <li><a href="">Received</a></li>
-    </ul>
+    <a href="#" class="filter-type" selected>All</a>
+    <a href="#" class="filter-type">Sent</a>
+    <a href="#" class="filter-type">Received</a>
   </div>
   
-  <div *ngFor="let transaction of transactions">
+  <div *ngFor="let transaction of transactions" class="transactions">
     <div class="transaction">
       <div class="value">
         {{ transaction.value }} <span class="unit-badge">AKA</span>

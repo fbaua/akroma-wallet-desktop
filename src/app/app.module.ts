@@ -29,6 +29,7 @@ import { TransactionListComponent } from './components/transaction-list/transact
 import { Web3Service } from './providers/web3.service';
 import { TransactionsPersistenceService } from './providers/transactions-persistence.service';
 import { TransactionsService } from './providers/transactions.service';
+import { WalletActionsComponent } from './components/wallet-actions/wallet-actions.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -44,6 +45,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     WalletComponent,
     TransactionListComponent,
     WalletListComponent,
+    WalletActionsComponent,
   ],
   imports: [
     RouterModule,

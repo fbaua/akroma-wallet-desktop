@@ -60,7 +60,9 @@ export class SplashPageComponent implements OnDestroy, OnInit {
         if (result === false && (this.lastPercentageSynced || 0).toFixed(0) === '100') {
           // Nav away here
           console.log('nav away...');
-          // this.router.navigate(['/path/to/go/to/here']);
+          // If user has not set up a wallet yet, send them to create / import wallet
+          // ...else send them to their last used wallet?
+          this.router.navigate(['/wallet/1']);
         }
       }
     });

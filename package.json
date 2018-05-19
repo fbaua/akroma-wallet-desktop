@@ -35,12 +35,16 @@
     "e2e": "npm-run-all -p -r pree2e:build pree2e:protractor"
   },
   "dependencies": {
-    "adm-zip": "^0.4.9",
     "bignumber.js": "^7.0.1",
+    "install": "^0.11.0",
     "ngx-bootstrap": "^2.0.5",
+    "npm": "^6.0.1",
+    "pouchdb": "^6.4.3",
+    "pouchdb-adapter-node-websql": "^6.4.3",
     "pouchdb-browser": "^6.4.3",
     "request": "^2.85.0",
-    "web3": "^1.0.0-beta.34"
+    "web3": "^1.0.0-beta.34",
+    "websql": "^0.4.4"
   },
   "devDependencies": {
     "@angular/cli": "1.7.4",
@@ -60,6 +64,7 @@
     "@types/jasmine": "2.8.6",
     "@types/jasminewd2": "2.0.3",
     "@types/node": "7.0.7",
+    "@types/pouchdb": "^6.3.2",
     "@types/pouchdb-browser": "^6.1.2",
     "codelyzer": "4.2.1",
     "core-js": "2.5.5",

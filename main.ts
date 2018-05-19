@@ -1,8 +1,8 @@
 import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
-import * as download from './core/download-akroma.js';
-import * as clientControl from './core/start-akroma.js';
+// import * as download from './core/download-akroma.js';
+// import * as clientControl from './core/start-akroma.js';
 
 let win, serve;
 const args = process.argv.slice(1);
@@ -56,37 +56,37 @@ try {
   // initialization and is ready to create browser windows.
   // Some APIs can only be used after this event occurs.
   app.on('ready', () => {
-    if (clientControl.clientRunning() === false) {
-      const startClient = clientControl.startClient;
-      if (download.akromaClientExists() === false) {
-        download.downloadAkromaClient((success, err) => {
-          if (err) {
-            throw new Error('Akroma client could not be started.')
-          }
-          const client = startClient();
-          client.stdout.on('data', function(data) {
-            console.log(data.toString());
-          });
-          client.stderr.on('data', function(data) {
-            console.log(data.toString());
-          });
-          client.on('exit', function(code, signal) {
-            console.log(code, signal);
-          });
-        });
-      } else {
-        const client = startClient();
-        client.stdout.on('data', function(data) {
-          console.log(data.toString());
-        });
-        client.stderr.on('data', function(data) {
-          console.log(data.toString());
-        });
-        client.on('exit', function(code, signal) {
-          console.log(code, signal);
-        });
-      }
-    }
+    // if (clientControl.clientRunning() === false) {
+    //   const startClient = clientControl.startClient;
+    //   if (download.akromaClientExists() === false) {
+    //     download.downloadAkromaClient((success, err) => {
+    //       if (err) {
+    //         throw new Error('Akroma client could not be started.')
+    //       }
+    //       const client = startClient();
+    //       client.stdout.on('data', function(data) {
+    //         console.log(data.toString());
+    //       });
+    //       client.stderr.on('data', function(data) {
+    //         console.log(data.toString());
+    //       });
+    //       client.on('exit', function(code, signal) {
+    //         console.log(code, signal);
+    //       });
+    //     });
+    //   } else {
+    //     const client = startClient();
+    //     client.stdout.on('data', function(data) {
+    //       console.log(data.toString());
+    //     });
+    //     client.stderr.on('data', function(data) {
+    //       console.log(data.toString());
+    //     });
+    //     client.on('exit', function(code, signal) {
+    //       console.log(code, signal);
+    //     });
+    //   }
+    // }
     createWindow();
   });
 
@@ -95,7 +95,7 @@ try {
     // On OS X it is common for applications and their menu bar
     // to stay active until the user quits explicitly with Cmd + Q
     if (process.platform !== 'darwin') {
-      clientControl.clientProcess.kill();
+      // clientControl.clientProcess.kill();
       app.quit();
     }
   });

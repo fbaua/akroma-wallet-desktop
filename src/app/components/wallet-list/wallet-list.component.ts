@@ -13,7 +13,6 @@ export class WalletListComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.web3);
   }
 
 }

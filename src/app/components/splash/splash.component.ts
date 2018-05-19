@@ -48,7 +48,6 @@ export class SplashComponent implements OnDestroy, OnInit {
     .pipe(mergeMap((i) => Observable.of(this.clientService.status)))
     .pipe(distinctUntilChanged())
     .subscribe((status: string) => {
-      console.log('status', status);
       this.clientStatus = status;
       if (status === statusConstants.DOWNLOADING) {
       }
@@ -77,7 +76,6 @@ export class SplashComponent implements OnDestroy, OnInit {
         this.isSyncing = result;
         if (!!result) {
           this.lastPercentageSynced = this.currentPercentage(result.currentBlock, result.highestBlock);
-          console.log(this.lastPercentageSynced.toFixed(0));
         }
         if (result === false && (this.lastPercentageSynced || 0).toFixed(0) === '100') {
           // Nav away here

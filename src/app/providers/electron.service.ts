@@ -36,7 +36,6 @@ export class ElectronService {
       this.crypto = window.require('crypto');
       this.path = window.require('path');
       this.process = window.require('process');
-      console.log('fs here', this.fs);
     }
   }
 

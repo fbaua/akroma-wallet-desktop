@@ -71,7 +71,6 @@ export class AkromaClientService {
     });
 
     req.on('end', () => {
-      console.log(this.clientPath);
       this.es.fs.chmod(this.clientPath + this.es.path.sep + this.clientBin, this.es.fs.constants.S_IXUSR, err => {
         if (err) {
           callback(false, 'Akroma client could not be created as executable');

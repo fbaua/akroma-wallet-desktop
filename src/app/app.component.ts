@@ -26,7 +26,6 @@ export class AppComponent {
       console.log('NodeJS os', electronService.os);
       this.akromaClientService.initialize(res => {
         this.akromaClientService.downloadClient(success => {
-          console.log('status', status);
           if (success) {
             this.akromaClientService.startClient();
           }

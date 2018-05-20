@@ -8,8 +8,10 @@ import { Observable } from 'rxjs/Observable';
 import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
 import { distinctUntilChanged, mergeMap, retry } from 'rxjs/operators';
 import 'rxjs/add/observable/fromPromise';
+import 'rxjs/add/observable/of';
 
 import { Web3Service } from '../../providers/web3.service';
+import { AkromaClientService, statusConstants } from '../../providers/akroma-client.service';
 
 // such override allows to keep some initial values
 export function getProgressbarConfig(): ProgressbarConfig {
@@ -22,22 +24,41 @@ export function getProgressbarConfig(): ProgressbarConfig {
   styleUrls: ['./splash-page.component.scss'],
   providers: [{ provide: ProgressbarConfig, useFactory: getProgressbarConfig }]
 })
-export class SplashPageComponent implements OnDestroy, OnInit {
+export class SplashComponent implements OnDestroy, OnInit {
+  clientStatus: string;
   lastPercentageSynced: number;
   isSyncing: boolean | any;
   isListening: boolean;
   peerCount: number;
+  clientStatusSubscription: ISubscription;
   isListeningSubscription: ISubscription;
   isSyncingSubscription: ISubscription;
   peerCountSubscription: ISubscription;
 
   constructor(private web3: Web3Service,
-              private router: Router) {
+              private router: Router,
+              private clientService: AkromaClientService) {
     this.web3.setProvider(new this.web3.providers.HttpProvider('http://localhost:8545'));
     this.lastPercentageSynced = 0;
+    this.clientStatus = '';
   }
 
   ngOnInit() {
+    this.clientStatusSubscription = IntervalObservable.create(5000)
+    .pipe(mergeMap((i) => Observable.of(this.clientService.status)))
+    .pipe(distinctUntilChanged())
+    .subscribe((status: string) => {
+      this.clientStatus = status;
+      if (status === statusConstants.DOWNLOADING) {
+      }
+      if (status === statusConstants.RUNNING) {
+        this.startSyncingSubscriptions();
+        this.clientStatusSubscription.unsubscribe();
+      }
+    });
+  }
+
+  private startSyncingSubscriptions(): void {
     this.isListeningSubscription = IntervalObservable.create(10000)
     .pipe(mergeMap((i) => Observable.fromPromise(this.web3.eth.net.isListening())))
     .pipe(retry(10))
@@ -55,7 +76,6 @@ export class SplashPageComponent implements OnDestroy, OnInit {
         this.isSyncing = result;
         if (!!result) {
           this.lastPercentageSynced = this.currentPercentage(result.currentBlock, result.highestBlock);
-          console.log(this.lastPercentageSynced.toFixed(0));
         }
         if (result === false && (this.lastPercentageSynced || 0).toFixed(0) === '100') {
           // Nav away here

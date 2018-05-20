@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
-const Web3 = require('web3');
 declare var require: any;
+const Web3 = require('web3');
 
 import { Net, Eth, Provider, Providers } from 'web3/types';
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Web3Service } from '../../providers/web3.service';
 
 @Component({
   selector: 'app-wallet-list',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WalletListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private web3: Web3Service) {
+    this.web3.setProvider(new this.web3.providers.HttpProvider('http://localhost:8545'));
+  }
 
   ngOnInit() {
   }

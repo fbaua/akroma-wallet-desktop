@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SplashComponent } from './splash-page.component';
+import { SendTransactionComponent } from './send-transaction.component';
 
-describe('SplashComponent', () => {
-  let component: SplashComponent;
-  let fixture: ComponentFixture<SplashComponent>;
+describe('SendTransactionComponent', () => {
+  let component: SendTransactionComponent;
+  let fixture: ComponentFixture<SendTransactionComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SplashComponent ]
+      declarations: [ SendTransactionComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SplashComponent);
+    fixture = TestBed.createComponent(SendTransactionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

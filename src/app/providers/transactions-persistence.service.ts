@@ -13,6 +13,6 @@ export class TransactionsPersistenceService {
   }
 
   constructor() {
-    this._db = new PouchDB('transactions', { adapter: 'websql' });
+    this._db = new PouchDB('transactions');
   }
 }

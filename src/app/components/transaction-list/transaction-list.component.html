@@ -7,7 +7,7 @@
 
   </div>
   
-  <div *ngFor="let transaction of transactions | paginate: { itemsPerPage: 5, currentPage: p }; let i = index" class="transactions">
+  <div *ngFor="let transaction of transactions | filter:filter | paginate: { itemsPerPage: 5, currentPage: p }; let i = index" class="transactions">
     <div class="transaction">
       <div class="value">
         {{ transaction.value }} <span class="unit-badge">AKA</span>

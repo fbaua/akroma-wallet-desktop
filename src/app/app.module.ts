@@ -35,7 +35,6 @@ import { ElectronService } from './providers/electron.service';
 import { SettingsPersistenceService } from './providers/settings-persistence.service';
 import { TransactionsPersistenceService } from './providers/transactions-persistence.service';
 import { TransactionsService } from './providers/transactions.service';
-import { Web3Service } from './providers/web3.service';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -72,7 +71,6 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   providers: [
     ElectronService,
-    Web3Service,
     TransactionsService,
     TransactionsPersistenceService,
     SettingsPersistenceService,

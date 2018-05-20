@@ -12,7 +12,7 @@
         text-decoration: none;
         padding: 0 6px;
 
-        &:hover, &:active, &[selected] {
+        &:hover, &:active, &.selected {
             opacity: 1;
             border-bottom: 2px solid #fff;
         }
@@ -66,4 +66,18 @@
 
 .address {
     display: flex;
+}
+
+@keyframes change-hue {
+    0% {
+        filter: hue-rotate(0);
+    }
+
+    100% {
+        filter: hue-rotate(360deg);
+    }
+}
+  
+.loading-logo {
+    animation: change-hue 2s linear infinite;
 }

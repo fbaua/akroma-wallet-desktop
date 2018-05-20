@@ -11,11 +11,25 @@ export class TransactionListComponent implements OnInit {
 
   timestamp: string = new Date().toLocaleDateString('en-GB', { timeZone: 'UTC' });
   p: number = 1;
-  isLoading: boolean = false;
+  filter: string = 'all';  
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  setFilter(filterType: string) {
+    switch(filterType) {
+      case 'all':
+        this.filter = 'all';
+        break;
+      case 'sent':
+        this.filter = 'sent';
+        break;
+      case 'received':
+        this.filter = 'received';
+        break;
+    }
   }
 
 }

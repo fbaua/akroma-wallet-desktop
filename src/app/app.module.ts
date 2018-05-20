@@ -6,6 +6,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
+import { NgxPaginationModule } from 'ngx-pagination';
+
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { ProgressbarModule } from 'ngx-bootstrap';
@@ -61,6 +63,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
+    NgxPaginationModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

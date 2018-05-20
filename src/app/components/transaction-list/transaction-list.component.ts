@@ -10,6 +10,8 @@ export class TransactionListComponent implements OnInit {
   @Input() transactions: Transaction[];
 
   timestamp: string = new Date().toLocaleDateString('en-GB', { timeZone: 'UTC' });
+  p: number = 1;
+  isLoading: boolean = false;
 
   constructor() { }
 

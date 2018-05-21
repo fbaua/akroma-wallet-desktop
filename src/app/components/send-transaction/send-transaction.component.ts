@@ -13,7 +13,9 @@ export class SendTransactionComponent implements OnInit {
   amountSelected: boolean;
 
   sendForm = new FormGroup ({
-    transactionValue: new FormControl()
+    transactionValue: new FormControl(),
+    transactionFrom: new FormControl(),
+    transactionTo: new FormControl(),
   });
 
   constructor() {
@@ -23,12 +25,12 @@ export class SendTransactionComponent implements OnInit {
       blockHash: '',
       blockNumber: 0,
       transactionIndex: 0,
-      from: '0xa97c1FB74fb503405f4bf43F036E9CD7492919A16',
-      to: '0xa97c1FB74fb503405f4bf43F036E9CD7492919A16',
+      from: '',
+      to: '',
       value: '0.00',
       gasPrice: '20 Gwei',
-      gas: 0,
-      input: '0xa97c1FB74fb503405f4bf43F036E9CD7492919A16',
+      gas: 2100,
+      input: '',
     };
 
     this.widthExp = 100;

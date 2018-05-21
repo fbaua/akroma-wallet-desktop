@@ -1,18 +1,31 @@
 <form [formGroup]="sendForm" class="send-transaction">
-  <div class="amount">
+  <div class="amount" [ngStyle]="{'background-color': amountSelected ? 'rgba(255, 255, 255, 0.3)' : 'rgba(255, 255, 255, 0.2)'}">
     <input 
-      class="value"
+      class="value form-input"
       type="number"
-      formControlName="transactionValue">
+      formControlName="transactionValue"
+      placeholder="0.00">
     <div class="unit-badge">AKA</div>
   </div>
   <div class="transaction-field from">
     <div class="left-column">From</div>
-    <div class="right-column">{{ transaction.from }}</div>
+    <div class="right-column">
+      <input
+        type="text"
+        class="form-input"
+        formControlName="transactionFrom"
+        placeholder="0xa97c13374fb513375133743F13379CD7413379A16">
+    </div>
   </div>
   <div class="transaction-field to">
     <div class="left-column">To</div>
-    <div class="right-column">{{ transaction.to }}</div>
+    <div class="right-column">
+      <input
+        type="text"
+        class="form-input"
+        formControlName="transactionTo"
+        placeholder="0xa97c13374fb513375133743F13379CD7413379A16">
+    </div>
   </div>
   <div class="transaction-field data">
     <div class="left-column">Data</div>
@@ -20,7 +33,7 @@
   </div>
   <div class="transaction-field gas-limit">
     <div class="left-column">Gas Limit</div>
-    <div class="right-column">{{ transaction.gasLimit }}</div>
+    <div class="right-column">{{ transaction.gas }}</div>
   </div>
   <div class="transaction-field gas-price">
     <div class="left-column">Gas Price</div>
@@ -31,4 +44,4 @@
     <div class="right-column">{{ transaction.networkFee }}</div>
   </div>
 </form>
-<p>Form value: {{ sendForm.value | json }}</p>
+<p>Form value: {{ sendForm | json }}</p>

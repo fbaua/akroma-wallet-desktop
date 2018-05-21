@@ -1,26 +1,34 @@
 .send-transaction {
     color: #fff;
 
-    .amount {
+    .form-input {
+        border: 0;
+        background: transparent;
+        font-weight: 200;
+        color: #fff;
+        outline: 0;
+
+        &::-webkit-input-placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        // removes up/down arrows for number inputs
+        &::-webkit-inner-spin-button, 
+        &::-webkit-outer-spin-button { 
+          -webkit-appearance: none;
+          margin: 0; 
+        }
+    }
+
+    > .amount {
         background-color: rgba(255, 255, 255, 0.3);
         padding: 12px 14px;
         display: flex;
         align-items: baseline;
 
         > .value {
-            border: 0;
-            background: transparent;
-            font-weight: 200;
             font-size: 36px;
-            color: #fff;
-            outline: 0;
             flex-grow: 1;
-
-            &::-webkit-inner-spin-button, 
-            &::-webkit-outer-spin-button { 
-              -webkit-appearance: none; 
-              margin: 0; 
-            }
         }
 
         > .unit-badge {

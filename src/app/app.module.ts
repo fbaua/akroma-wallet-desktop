@@ -30,6 +30,7 @@ import { TransactionListComponent } from './components/transaction-list/transact
 import { WalletActionsComponent } from './components/wallet-actions/wallet-actions.component';
 import { SendTransactionComponent } from './components/send-transaction/send-transaction.component';
 import { WalletListComponent } from './components/wallet-list/wallet-list.component';
+import { MastheadComponent } from './components/masthead/masthead.component';
 
 // Services
 import { AkromaClientService } from './providers/akroma-client.service';
@@ -55,6 +56,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     WalletComponent,
     WalletActionsComponent,
     WalletListComponent,
+    MastheadComponent,
   ],
   imports: [
     RouterModule,

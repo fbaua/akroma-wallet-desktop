@@ -46,7 +46,7 @@ export const clientConstants = {
                             'md5': '4fd0f7a0cb7f823708d427b7da81baac',
                         },
                         'bin': 'geth.exe',
-                        'extract_path': '/.Akroma'
+                        'extract_path': '/.akroma'
                     },
                     'x32': {
                         'download': {
@@ -54,7 +54,7 @@ export const clientConstants = {
                             'md5': '08067722fa94b09dd0d083519060cb9b',
                         },
                         'bin': 'geth.exe',
-                        'extract_path': '/.Akroma'
+                        'extract_path': '/.akroma'
                     }
                 }
             }

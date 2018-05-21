@@ -45,7 +45,7 @@ export class SplashComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit() {
-    this.clientStatusSubscription = IntervalObservable.create(5000)
+    this.clientStatusSubscription = IntervalObservable.create(1000)
     .pipe(mergeMap((i) => Observable.of(this.clientService.status)))
     .pipe(distinctUntilChanged())
     .subscribe((status: string) => {
@@ -61,25 +61,26 @@ export class SplashComponent implements OnDestroy, OnInit {
   }
 
   private startSyncingSubscriptions(): void {
-    this.isListeningSubscription = IntervalObservable.create(20000)
+    this.isListeningSubscription = IntervalObservable.create(2000)
     .pipe(mergeMap((i) => Observable.fromPromise(this.web3.eth.net.isListening())))
     .pipe(retry(10))
-    .pipe(distinctUntilChanged())
     .subscribe((result: boolean) => {
+      console.log('is listening:' + result);
       this.isListening = result;
     });
 
-    this.isSyncingSubscription = IntervalObservable.create(10000)
+    this.isSyncingSubscription = IntervalObservable.create(1000)
     .pipe(mergeMap((i) => Observable.fromPromise(this.web3.eth.isSyncing())))
     .pipe(retry(10))
-    .pipe(distinctUntilChanged())
     .subscribe((result: boolean | any) => {
+      console.log('is syncing:' + JSON.stringify(result));
       if (this.isListening) {
         this.isSyncing = result;
         if (!!result) {
+          console.log('currentBlock:' + result.currentBlock + ' highestBlock:' + result.highestBlock);
           this.lastPercentageSynced = this.currentPercentage(result.currentBlock, result.highestBlock);
         }
-        if (result === false && (this.lastPercentageSynced || 0).toFixed(0) === '100') {
+        if (!!result === false && (this.lastPercentageSynced || 0).toFixed(0) === '100') {
           // Nav away here
           console.log('nav away...');
           // If user has not set up a wallet yet, send them to create / import wallet
@@ -92,7 +93,6 @@ export class SplashComponent implements OnDestroy, OnInit {
     this.peerCountSubscription = IntervalObservable.create(15000)
     .pipe(mergeMap((i) => Observable.fromPromise(this.web3.eth.net.getPeerCount())))
     .pipe(retry(10))
-    .pipe(distinctUntilChanged())
     .subscribe((result: number) => {
       if (this.isListening) {
         this.peerCount = result;

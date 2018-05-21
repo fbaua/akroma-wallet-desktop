@@ -3,7 +3,7 @@ import * as childProcess from 'child_process';
 import * as crypto from 'crypto';
 // If you import a module but never use any of the imported values other than as TypeScript types,
 // the resulting javascript file will look as if you never imported the module at all.
-import { app, ipcRenderer, remote, webFrame } from 'electron';
+import { ipcRenderer, remote, webFrame } from 'electron';
 import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
@@ -22,7 +22,6 @@ export class ElectronService {
   crypto: typeof crypto;
   path: typeof path;
   process: typeof process;
-  app: typeof app;
 
   constructor() {
     // Conditional imports
@@ -37,7 +36,6 @@ export class ElectronService {
       this.crypto = window.require('crypto');
       this.path = window.require('path');
       this.process = window.require('process');
-      this.app = app;
     }
   }
 

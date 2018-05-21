@@ -12,6 +12,7 @@ import 'rxjs/add/observable/of';
 
 import { Web3Service } from '../../providers/web3.service';
 import { AkromaClientService, statusConstants } from '../../providers/akroma-client.service';
+import { clientConstants } from '../../providers/akroma-client.constants';
 
 // such override allows to keep some initial values
 export function getProgressbarConfig(): ProgressbarConfig {
@@ -38,7 +39,7 @@ export class SplashComponent implements OnDestroy, OnInit {
   constructor(private web3: Web3Service,
               private router: Router,
               private clientService: AkromaClientService) {
-    this.web3.setProvider(new this.web3.providers.HttpProvider('http://localhost:8545'));
+    this.web3.setProvider(new this.web3.providers.HttpProvider(clientConstants.connection.default));
     this.lastPercentageSynced = 0;
     this.clientStatus = '';
   }
@@ -59,7 +60,7 @@ export class SplashComponent implements OnDestroy, OnInit {
   }
 
   private startSyncingSubscriptions(): void {
-    this.isListeningSubscription = IntervalObservable.create(10000)
+    this.isListeningSubscription = IntervalObservable.create(20000)
     .pipe(mergeMap((i) => Observable.fromPromise(this.web3.eth.net.isListening())))
     .pipe(retry(10))
     .pipe(distinctUntilChanged())
@@ -67,7 +68,7 @@ export class SplashComponent implements OnDestroy, OnInit {
       this.isListening = result;
     });
 
-    this.isSyncingSubscription = IntervalObservable.create(1000)
+    this.isSyncingSubscription = IntervalObservable.create(10000)
     .pipe(mergeMap((i) => Observable.fromPromise(this.web3.eth.isSyncing())))
     .pipe(retry(10))
     .pipe(distinctUntilChanged())
@@ -87,7 +88,7 @@ export class SplashComponent implements OnDestroy, OnInit {
       }
     });
 
-    this.peerCountSubscription = IntervalObservable.create(1000)
+    this.peerCountSubscription = IntervalObservable.create(15000)
     .pipe(mergeMap((i) => Observable.fromPromise(this.web3.eth.net.getPeerCount())))
     .pipe(retry(10))
     .pipe(distinctUntilChanged())

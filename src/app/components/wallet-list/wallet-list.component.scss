@@ -1,0 +1,223 @@
+.foo {
+    padding-top: 50px;
+}
+.wallet-values-actions{
+    display: flex;
+    padding-bottom: 10px;
+}
+
+.total-wallets-value {
+    position: inherit;
+    width: 380px;
+    height: 57px;
+    left: 87px;
+    top: calc(50% - 57px/2 - 212px);
+
+    font-style: normal;
+    font-weight: 100;
+    line-height: normal;
+    font-size: 48px;
+
+    color: #FFFFFF;
+    text-shadow: 0px 5px 7px rgba(0, 0, 0, 0.15), 0px 1px 1px rgba(0, 0, 0, 0.15);
+}
+
+.wallet-actions {
+    display: flex;
+    float: right;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    width: 70%;
+
+    a.action {
+        display: flex;
+        flex-direction: column;
+        font-size: 18px;
+        font-weight: 200;
+        letter-spacing: 1px;
+        color: #fff;
+
+        > img {
+            height: 30px;
+            margin-bottom: 4px;
+        }
+
+        &:hover {
+            opacity: 0.7;
+            text-decoration: none;
+        }
+    }
+}
+
+.send-arrow, .receive-arrow {
+    position: inherit;
+    box-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1);
+}
+
+.wallet-sorting-operations {
+    border-top: 0.5px solid rgba(255, 255, 255, 0.4);
+    padding-bottom: 32px;
+    padding-top: 12px;
+}
+
+.new-wallet {
+    display: flex;
+    font-family: Work Sans;
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    font-size: 15px;
+    float: right;
+}
+
+.new-wallet > a {
+    color: #FFFFFF;
+    text-decoration: none;
+
+    &:hover {
+        opacity: 0.7;
+    }
+}
+
+.wallet-row {
+    display: flex;
+    height: 90px;
+    margin-top: 11px;
+}
+
+.wallet-square {
+    position: inherit;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+
+    background-color: rgba(255,255,255,0.15);
+    mix-blend-mode: normal;
+
+    margin-right: 1px;
+    width: 90px;
+}
+
+.wallet-icon {
+    height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wallet-detail {
+    display: flex;
+    position: inherit;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+
+    background-color: rgba(255,255,255,0.2);
+    mix-blend-mode: normal;
+
+    margin-left: 1px;
+    margin-right: 1px;
+    width: 972px;
+    flex-direction: column;
+}
+
+.wallet-name {
+    position: inherit;
+    height: 51px;
+    left: 2.06%;
+    right: 50.51%;
+    top: calc(50% - 51px/2 - 19.5px);
+    
+    font-family: Work Sans;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    font-size: 24px;
+    
+    color: #FFFFFF;
+
+    margin-left: 20px;
+    padding-top: 20px;
+}
+
+.wallet-address {
+    position: inherit;
+    height: 38px;
+    left: 2.06%;
+    right: 50.51%;
+    top: calc(50% - 38px/2 + 26px);
+    
+    font-family: Work Sans;
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    font-size: 15px;
+    
+    color: #FFFFFF;
+
+    margin-left: 20px;
+}
+
+.wallet-right-control {
+    margin-left: 1px;
+    width: 45px;
+    display: flex;
+    flex-direction: column;
+}
+
+#wallet-context {
+    border:none;
+    background-image:none;
+    background-color:transparent;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    padding: inherit;
+}
+
+.wallet-ellipsis {
+    position: inherit;
+    left: 100%;
+    right: -100%;
+    top: 0%;
+    bottom: 51.11%;
+
+    background-color: rgba(255,255,255,0.15);
+    mix-blend-mode: normal;
+    transform: matrix(-1, 0, 0, 1, 0, 0);
+
+    margin-bottom: 1px;
+    height: 44px;
+    width: 100%;
+}
+
+.wallet-ellipsis-icon {
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wallet-qr-small {
+    position: inherit;
+    left: 100%;
+    right: -100%;
+    top: 50%;
+    bottom: 0%;
+    background-color: rgba(255,255,255,0.15);
+    mix-blend-mode: normal;
+    transform: matrix(-1, 0, 0, 1, 0, 0);
+
+    margin-top: 1px;
+    height: 44px;
+    width: 100%;
+}
+
+.wallet-qr-icon {
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -8,7 +8,7 @@ import { Wallet } from '../../models/wallet';
 })
 export class WalletComponent implements OnInit {
   @Input() wallet: Wallet;
-  
+
   constructor() { }
 
   ngOnInit() {

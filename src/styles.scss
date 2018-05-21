@@ -2,8 +2,18 @@
 html, body {
   margin: 0;
   padding: 0;
-
   height: 100%;
+
+  background: url(./assets/images/explorer-bg-blocks.jpg) no-repeat center fixed;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+
+  padding-left: 85px;
+  padding-right: 85px;
+  padding-top: 85px;
+
   box-sizing: border-box;
   font-family: 'Work Sans', sans-serif;
 }

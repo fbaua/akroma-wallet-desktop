@@ -1,5 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
+
+const electron = window.require('electron')
+
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+
+import { ISubscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
+import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
+import { distinctUntilChanged, mergeMap, retry } from 'rxjs/operators';
+import 'rxjs/add/observable/fromPromise';
+import 'rxjs/add/observable/of';
+
 import { Web3Service } from '../../providers/web3.service';
+import { clientConstants } from '../../providers/akroma-client.constants';
+import { WalletPersistenceService } from '../../providers/wallet-persistence.service';
+import { Wallet } from '../../models/wallet';
+import { ElectronService } from '../../providers/electron.service';
+import { SettingsPersistenceService } from '../../providers/settings-persistence.service';
 
 @Component({
   selector: 'app-wallet-list',
@@ -7,12 +26,107 @@ import { Web3Service } from '../../providers/web3.service';
   styleUrls: ['./wallet-list.component.scss']
 })
 export class WalletListComponent implements OnInit {
+  modalRef: BsModalRef;
+  allWalletsBalance: number;
+  walletForm: FormGroup;
+  wallets: Wallet[];
 
-  constructor(private web3: Web3Service) {
-    this.web3.setProvider(new this.web3.providers.HttpProvider('http://localhost:8545'));
+  constructor(private formBuilder: FormBuilder,
+              private modalService: BsModalService,
+              private web3: Web3Service,
+              private walletService: WalletPersistenceService,
+              private settingsService: SettingsPersistenceService,
+              private electronService: ElectronService) {
+    this.web3.setProvider(new this.web3.providers.HttpProvider(clientConstants.connection.default));
+    this.wallets = [];
+    this.walletForm = this.formBuilder.group(
+      { name: '', passphrase: '', confirmPassphrase: '' },
+      { validator: this.passphraseMatchValidator },
+    );
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    const subscription = IntervalObservable.create(5000)
+    .pipe(mergeMap((i) => Observable.fromPromise(this.web3.eth.personal.getAccounts())))
+    .pipe(retry(10))
+    .pipe(distinctUntilChanged())
+    .subscribe(async (wallets: string[]) => {
+      const allPersistedWallets = await this.walletService.db.allDocs({ include_docs: true });
+      wallets.forEach(wallet => {
+        const storedWallet = allPersistedWallets.rows.find(x => x.doc.address === wallet);
+        if (!!storedWallet) {
+          this.wallets.push(storedWallet.doc);
+          return;
+        }
+
+        this.wallets.push({
+          name: 'Unnamed Wallet',
+          address: wallet,
+          _id: wallet,
+        });
+      });
+      this.allWalletsBalance = await this.getWalletBalances(this.wallets.map(x => x.address));
+      subscription.unsubscribe();
+    });
   }
 
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
+
+  passphraseMatchValidator(g: FormGroup) {
+    return g.get('passphrase').value === g.get('confirmPassphrase').value
+    ? null : {'passphraseMatch': true};
+  }
+
+  async createWallet(walletForm: FormGroup = this.walletForm) {
+    const newWalletAddress = await this.web3.eth.personal.newAccount(walletForm.get('passphrase').value);
+    const newWalletObject: Wallet = {
+      _id: newWalletAddress,
+      address: newWalletAddress,
+      name: this.walletForm.get('name').value,
+    };
+    this.walletService.db.put(newWalletObject);
+    this.wallets.push(await this.walletService.db.get(newWalletObject._id));
+    this.modalRef.hide();
+    this.walletForm.reset();
+  }
+
+  async deleteWallet(wallet: Wallet) {
+    const systemSettings = await this.settingsService.db.get('system');
+    const keystoreFileDir = `${systemSettings.dataDirPath}/.akroma/keystore`;
+    const keystoreFileList = this.electronService.fs.readdirSync(keystoreFileDir);
+    const keystoreFile = keystoreFileList.find(x => x.toLowerCase().includes(wallet.address.replace('0x', '').toLowerCase()));
+    if (keystoreFile) {
+      await this.electronService.fs.unlinkSync(`${keystoreFileDir}/${keystoreFile}`);
+      const result = await this.walletService.db.remove(wallet._id, wallet._rev);
+      if (result.ok) {
+        this.wallets = this.wallets.filter(x => x._id !== wallet._id);
+      }
+      this.modalRef.hide();
+    }
+  }
+
+  async getWalletBalances(addresses: string[]) {
+    let totalBalance = 0;
+    addresses.forEach(async x => {
+      totalBalance += this.web3.utils.fromWei(await this.web3.eth.getBalance(x));
+    });
+    return totalBalance;
+  }
+
+  backupWalletReminder(wallet: Wallet, template: TemplateRef<any>) {
+    this.openModal(template);
+    this.modalRef.content = { wallet };
+  }
+
+  async backupWallet(wallet: Wallet) {
+    const systemSettings = await this.settingsService.db.get('system');
+    const keystoreFileDir = `${systemSettings.dataDirPath}/.akroma/keystore`;
+    const keystoreFileList = await this.electronService.fs.readdirSync(keystoreFileDir);
+    const keystoreFile = keystoreFileList.find(x => x.toLowerCase().includes(wallet.address.replace('0x', '').toLowerCase()));
+    if (keystoreFile) {
+      electron.shell.showItemInFolder(`${keystoreFileDir}/${keystoreFile}`);
+    }
+  }
 }

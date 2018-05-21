@@ -8,7 +8,8 @@ import { RouterModule } from '@angular/router';
 
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
-import { ProgressbarModule } from 'ngx-bootstrap';
+import { ProgressbarModule, PopoverModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
@@ -34,6 +35,7 @@ import { MastheadComponent } from './components/masthead/masthead.component';
 
 // Services
 import { AkromaClientService } from './providers/akroma-client.service';
+import { WalletPersistenceService } from './providers/wallet-persistence.service';
 import { ElectronService } from './providers/electron.service';
 import { SettingsPersistenceService } from './providers/settings-persistence.service';
 import { TransactionsPersistenceService } from './providers/transactions-persistence.service';
@@ -48,6 +50,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
+    SplashComponent,
     WalletDetailPageComponent,
     SettingsPageComponent,
     SendTransactionComponent,
@@ -75,6 +78,8 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
     ProgressbarModule.forRoot(),
+    ModalModule.forRoot(),
+    PopoverModule.forRoot()
   ],
   providers: [
     AkromaClientService,
@@ -83,6 +88,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     TransactionsService,
     TransactionsPersistenceService,
     SettingsPersistenceService,
+    WalletPersistenceService,
   ],
   bootstrap: [AppComponent]
 })

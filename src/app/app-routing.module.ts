@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { WalletListComponent } from './components/wallet-list/wallet-list.component';
+import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
 import { SplashComponent } from './pages/splash/splash-page.component';
 import { WalletDetailPageComponent } from './pages/wallet-detail/wallet-detail-page.component';
 

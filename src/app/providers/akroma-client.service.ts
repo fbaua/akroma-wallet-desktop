@@ -8,6 +8,7 @@ import { clientConstants } from './akroma-client.constants';
 import { ElectronService } from './electron.service';
 import { SettingsPersistenceService } from './settings-persistence.service';
 import { SystemSettings } from '../models/system-settings';
+import { Web3Service } from './web3.service';
 
 export const statusConstants = {
   DOWNLOADING: 'downloading',
@@ -32,18 +33,29 @@ export class AkromaClientService {
     return this._status;
   }
 
-  constructor(private es: ElectronService, private settingsService: SettingsPersistenceService) {
+  constructor(private es: ElectronService,
+              private settingsService: SettingsPersistenceService,
+              private web3: Web3Service) {
+    this.web3.setProvider(new this.web3.providers.HttpProvider(clientConstants.connection.default));
   }
 
   async initialize(callback: Function) {
     let settings;
     try {
-      settings = await this.settingsService.db.get('system');
-    } catch {
-      settings = {};
-    } finally {
       this.client = clientConstants.clients.akroma.platforms[this.es.os.platform()][this.es.os.arch()];
-      this.clientPath = settings.dataDirPath || this.es.path.join(this.es.process.env.HOME + this.client.extract_path);
+      settings = await this.settingsService.db.get('system');
+      console.log('settings', settings);
+    } catch {
+      const result = await this.settingsService.db.put({
+        _id: 'system',
+        dataDirPath: this.es.path.join(this.es.process.env.HOME + this.client.extract_path),
+        syncMode: 'fast',
+      });
+      if (result.ok) {
+        settings = await this.settingsService.db.get('system') || {};
+      }
+    } finally {
+      this.clientPath = settings.dataDirPath;
       this.clientBin = this.client.bin;
       this.syncMode = settings.syncMode;
       callback(true);
@@ -81,15 +93,23 @@ export class AkromaClientService {
   }
 
   async startClient() {
+    try {
+      const isListening = await this.web3.eth.net.isListening();
+      if (isListening) {
+        this._status = statusConstants.RUNNING;
+        return;
+      }
+    } catch {
       // tslint:disable-next-line:no-console
       console.info('[Starting Akroma client...]');
       const process = this.es.childProcess.spawn(this.clientPath + this.es.path.sep + this.clientBin, [
-          '--datadir', this.clientPath + this.es.path.sep + '.akroma', '--syncmode', (this.syncMode || 'fast'),
-          '--cache', '1024', '--rpc', '--rpccorsdomain', '*', '--rpcport', '8545', '--rpcapi', 'eth,web3,admin,net,personal',
+          '--datadir', this.clientPath + this.es.path.sep + '.akroma', '--syncmode', this.syncMode,
+          '--cache', '1024', '--rpc', '--rpccorsdomain', '*', '--rpcport', '8545', '--rpcapi', 'eth,web3,admin,net,personal,db',
       ]);
       this._process = process;
       this._status = statusConstants.RUNNING;
       return process;
+    }
   }
 
   stopClient() {

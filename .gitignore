@@ -3,3 +3,4 @@ dist/
 .vscode/
 main.js
 app-builds/
+.DS_Store

@@ -9,6 +9,8 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { ProgressbarModule } from 'ngx-bootstrap';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -16,21 +18,27 @@ import { AppRoutingModule } from './app-routing.module';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-import { ElectronService } from './providers/electron.service';
-
-import { WebviewDirective } from './directives/webview.directive';
-
-import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.component';
-import { SplashComponent } from './components/splash/splash.component';
-import { Web3Service } from './providers/web3.service';
-import { TransactionsPersistenceService } from './providers/transactions-persistence.service';
-import { TransactionsService } from './providers/transactions.service';
+// Pages
+import { SplashComponent } from './pages/splash/splash-page.component';
 import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
-import { SettingsPersistenceService } from './providers/settings-persistence.service';
+import { WalletDetailPageComponent } from './pages/wallet-detail/wallet-detail-page.component';
+
+// Components
+import { AppComponent } from './app.component';
+import { WalletComponent } from './components/wallet/wallet.component';
+import { TransactionListComponent } from './components/transaction-list/transaction-list.component';
+import { WalletActionsComponent } from './components/wallet-actions/wallet-actions.component';
 import { SendTransactionComponent } from './components/send-transaction/send-transaction.component';
 import { WalletListComponent } from './components/wallet-list/wallet-list.component';
+import { MastheadComponent } from './components/masthead/masthead.component';
+
+// Services
 import { AkromaClientService } from './providers/akroma-client.service';
+import { ElectronService } from './providers/electron.service';
+import { SettingsPersistenceService } from './providers/settings-persistence.service';
+import { TransactionsPersistenceService } from './providers/transactions-persistence.service';
+import { TransactionsService } from './providers/transactions.service';
+import { Web3Service } from './providers/web3.service';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -40,12 +48,15 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    WebviewDirective,
-    SplashComponent,
+    WalletDetailPageComponent,
     SettingsPageComponent,
     SendTransactionComponent,
+    SplashComponent,
+    TransactionListComponent,
+    WalletComponent,
+    WalletActionsComponent,
     WalletListComponent,
+    MastheadComponent,
   ],
   imports: [
     RouterModule,
@@ -54,6 +65,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
+    NgxPaginationModule,
+    Ng2SearchPipeModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -64,12 +77,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     ProgressbarModule.forRoot(),
   ],
   providers: [
+    AkromaClientService,
     ElectronService,
     Web3Service,
     TransactionsService,
     TransactionsPersistenceService,
     SettingsPersistenceService,
-    AkromaClientService,
   ],
   bootstrap: [AppComponent]
 })

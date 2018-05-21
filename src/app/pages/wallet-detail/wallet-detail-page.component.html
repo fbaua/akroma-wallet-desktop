@@ -1,0 +1,12 @@
+<div class="container">
+  <app-masthead></app-masthead>
+  <div class="row">
+    <div class="col-sm">
+      <app-wallet [wallet]="wallet"></app-wallet>
+      <app-send-transaction></app-send-transaction>
+    </div>
+    <div class="col-sm">
+      <app-transaction-list [transactions]="transactions"></app-transaction-list>
+    </div>
+  </div>
+</div>

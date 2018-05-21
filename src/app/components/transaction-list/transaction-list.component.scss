@@ -1,0 +1,82 @@
+.filters {
+    width: 100%;
+    display: flex;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    height: 33px;
+
+    .filter-type {
+        height: 33px;
+        font-size: 18px;
+        color: #fff;
+        opacity: 0.6;
+        text-decoration: none;
+        padding: 0 6px;
+
+        &:hover, &:active, &.selected {
+            opacity: 1;
+            border-bottom: 2px solid #fff;
+        }
+    }
+}
+
+.transactions {
+    margin: 14px;
+    overflow-y: scroll;
+    color: #fff;
+}
+
+.transaction {
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 12px 14px;
+
+    > .value {
+        font-weight: 200;
+        font-size: 36px;
+        line-height: 42px;
+
+        > .unit-badge {
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 3px 6px;
+        }
+    }
+
+    > .timestamp {
+        font-size: 15px;
+    }
+}
+
+.to, .toAddress, .from, .fromAddress {
+    margin-top: 2px;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 4px 8px;
+}
+
+.toAddress, .fromAddress {
+    font-weight: 400;
+}
+
+.to, .from {
+    margin-right: 2px;
+    font-weight: 500;
+}
+
+.address {
+    display: flex;
+}
+
+@keyframes change-hue {
+    0% {
+        filter: hue-rotate(0);
+    }
+
+    100% {
+        filter: hue-rotate(360deg);
+    }
+}
+  
+.loading-logo {
+    animation: change-hue 2s linear infinite;
+}

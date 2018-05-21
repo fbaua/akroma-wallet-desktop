@@ -22,11 +22,11 @@
 .transactions {
     margin: 14px;
     overflow-y: scroll;
+    color: #fff;
 }
 
 .transaction {
     background-color: rgba(255, 255, 255, 0.3);
-    color: #fff;
     padding: 12px 14px;
 
     > .value {
@@ -51,7 +51,6 @@
 .to, .toAddress, .from, .fromAddress {
     margin-top: 2px;
     background-color: rgba(255, 255, 255, 0.2);
-    color: #fff;
     padding: 4px 8px;
 }
 

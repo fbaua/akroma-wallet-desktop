@@ -1,3 +1,34 @@
-<p>
-  send-transaction works!
-</p>
+<form [formGroup]="sendForm" class="send-transaction">
+  <div class="amount">
+    <input 
+      class="value"
+      type="number"
+      formControlName="transactionValue">
+    <div class="unit-badge">AKA</div>
+  </div>
+  <div class="transaction-field from">
+    <div class="left-column">From</div>
+    <div class="right-column">{{ transaction.from }}</div>
+  </div>
+  <div class="transaction-field to">
+    <div class="left-column">To</div>
+    <div class="right-column">{{ transaction.to }}</div>
+  </div>
+  <div class="transaction-field data">
+    <div class="left-column">Data</div>
+    <div class="right-column">{{ transaction.input }}</div>
+  </div>
+  <div class="transaction-field gas-limit">
+    <div class="left-column">Gas Limit</div>
+    <div class="right-column">{{ transaction.gasLimit }}</div>
+  </div>
+  <div class="transaction-field gas-price">
+    <div class="left-column">Gas Price</div>
+    <div class="right-column">{{ transaction.gasPrice }}</div>
+  </div>
+  <div class="transaction-field network-fee">
+    <div class="left-column">Network Fee</div>
+    <div class="right-column">{{ transaction.networkFee }}</div>
+  </div>
+</form>
+<p>Form value: {{ sendForm.value | json }}</p>

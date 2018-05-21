@@ -1,8 +1,7 @@
 import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
-// import * as download from './core/download-akroma.js';
-// import * as clientControl from './core/start-akroma.js';
+import { AppConfig } from './src/app/app.config';
 
 let win, serve;
 const args = process.argv.slice(1);
@@ -30,7 +29,7 @@ function createWindow() {
 
   if (serve) {
     require('electron-reload')(__dirname, {
-     electron: require(`${__dirname}/node_modules/electron`)});
+    electron: require(`${__dirname}/node_modules/electron`)});
     win.loadURL('http://localhost:4200');
   } else {
     win.loadURL(url.format({
@@ -40,7 +39,9 @@ function createWindow() {
     }));
   }
 
-  win.webContents.openDevTools();
+  if (AppConfig.production === false) {
+    win.webContents.openDevTools();
+  }
 
   // Emitted when the window is closed.
   win.on('closed', () => {

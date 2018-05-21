@@ -1,11 +1,11 @@
 {
-  "name": "angular-electron",
-  "version": "3.3.0",
-  "description": "Angular 5 with Electron (Typescript + SASS + Hot Reload)",
-  "homepage": "https://github.com/maximegris/angular-electron",
+  "name": "akroma",
+  "version": "Alpha-0.0.1",
+  "description": "Akroma Desktop Wallet",
+  "homepage": "https://github.com/akroma-project/akroma-wallet-desktop",
   "author": {
-    "name": "Maxime GRIS",
-    "email": "maxime.gris@gmail.com"
+    "name": "Ian DesJardins",
+    "email": "ian.desjardins@akroma.io"
   },
   "keywords": [
     "angular",

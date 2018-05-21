@@ -28,4 +28,8 @@ export class TransactionsService extends Web3Service {
     }
     return accountTransactions;
   }
+
+  private sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 }

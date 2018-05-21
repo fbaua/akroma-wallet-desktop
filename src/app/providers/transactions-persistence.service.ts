@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import * as PouchDB from 'pouchdb-browser';
+import PouchDB from 'pouchdb';
 
 import { Transaction } from 'web3/types';
 

@@ -9,6 +9,7 @@ import * as os from 'os';
 import * as crypto from 'crypto';
 import * as path from 'path';
 import * as process from 'process';
+import * as net from 'net';
 
 @Injectable()
 export class ElectronService {
@@ -22,6 +23,7 @@ export class ElectronService {
   crypto: typeof crypto;
   path: typeof path;
   process: typeof process;
+  net: typeof net;
 
   constructor() {
     // Conditional imports
@@ -36,6 +38,7 @@ export class ElectronService {
       this.crypto = window.require('crypto');
       this.path = window.require('path');
       this.process = window.require('process');
+      this.net = window.require('net');
     }
   }
 

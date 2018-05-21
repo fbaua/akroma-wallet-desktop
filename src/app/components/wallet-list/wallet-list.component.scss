@@ -49,17 +49,6 @@
     }
 }
 
-.send-arrow, .receive-arrow {
-    position: inherit;
-    box-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1);
-}
-
-.wallet-sorting-operations {
-    border-top: 0.5px solid rgba(255, 255, 255, 0.4);
-    padding-bottom: 32px;
-    padding-top: 12px;
-}
-
 .new-wallet {
     display: flex;
     font-family: Work Sans;

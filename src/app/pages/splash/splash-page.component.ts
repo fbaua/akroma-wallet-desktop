@@ -80,12 +80,15 @@ export class SplashComponent implements OnDestroy, OnInit {
           console.log('currentBlock:' + result.currentBlock + ' highestBlock:' + result.highestBlock);
           this.lastPercentageSynced = this.currentPercentage(result.currentBlock, result.highestBlock);
         }
-        if (!!result === false && (this.lastPercentageSynced || 0).toFixed(0) === '100') {
+        console.log(result);
+        console.log(this.lastPercentageSynced);
+        console.log((this.lastPercentageSynced || 0).toFixed(0));
+        if (result === false && (this.lastPercentageSynced || 100).toFixed(0) === '100') {
           // Nav away here
           console.log('nav away...');
           // If user has not set up a wallet yet, send them to create / import wallet
           // ...else send them to their last used wallet?
-          this.router.navigate(['/wallet/1']);
+          this.router.navigate(['/wallets']);
         }
       }
     });

@@ -1,8 +1,8 @@
 <div class="transaction-list">
   <div class="filters">
-    <a href="#" class="filter-type" [ngClass]="{'selected': filter === 'all'}" (click)="setFilter('all')">All</a>
-    <a href="#" class="filter-type" [ngClass]="{'selected': filter === 'sent'}" (click)="setFilter('sent')">Sent</a>
-    <a href="#" class="filter-type" [ngClass]="{'selected': filter === 'received'}" (click)="setFilter('received')">Received</a>
+    <a class="filter-type" [ngClass]="{'selected': filter === 'all'}" (click)="setFilter('all')">All</a>
+    <a class="filter-type" [ngClass]="{'selected': filter === 'sent'}" (click)="setFilter('sent')">Sent</a>
+    <a class="filter-type" [ngClass]="{'selected': filter === 'received'}" (click)="setFilter('received')">Received</a>
   </div>
 
   <div *ngFor="let transaction of transactions | filter:filter | paginate: { itemsPerPage: 5, currentPage: p }; let i = index"

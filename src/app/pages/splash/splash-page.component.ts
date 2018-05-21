@@ -51,6 +51,7 @@ export class SplashComponent implements OnDestroy, OnInit {
     .subscribe((status: string) => {
       this.clientStatus = status;
       if (status === statusConstants.DOWNLOADING) {
+        return;
       }
       if (status === statusConstants.RUNNING) {
         this.startSyncingSubscriptions();

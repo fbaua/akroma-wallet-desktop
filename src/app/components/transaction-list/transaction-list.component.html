@@ -5,12 +5,12 @@
     <a href="#" class="filter-type" [ngClass]="{'selected': filter === 'received'}" (click)="setFilter('received')">Received</a>
   </div>
 
-  </div>
-  
-  <div *ngFor="let transaction of transactions | filter:filter | paginate: { itemsPerPage: 5, currentPage: p }; let i = index" class="transactions">
+  <div *ngFor="let transaction of transactions | filter:filter | paginate: { itemsPerPage: 5, currentPage: p }; let i = index"
+    class="transactions">
     <div class="transaction">
       <div class="value">
-        {{ transaction.value }} <span class="unit-badge">AKA</span>
+        {{ transaction.value }}
+        <span class="unit-badge">AKA</span>
       </div>
       <div class="timestamp">
         {{ this.timestamp }}
@@ -26,5 +26,4 @@
     </div>
   </div>
   <pagination-controls (pageChange)="p = $event"></pagination-controls>
-    
 </div>

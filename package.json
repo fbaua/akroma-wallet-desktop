@@ -41,12 +41,14 @@
     "ng2-search-filter": "^0.4.7",
     "ngx-bootstrap": "^2.0.5",
     "ngx-pagination": "^3.1.1",
+    "node-pre-gyp": "^0.10.0",
     "npm": "^6.0.1",
     "pouchdb": "^6.4.3",
     "pouchdb-adapter-node-websql": "^6.4.3",
     "pouchdb-browser": "^6.4.3",
     "request": "^2.85.0",
     "web3": "^1.0.0-beta.34",
+    "websocket": "^1.0.26",
     "websql": "^0.4.4"
   },
   "devDependencies": {
@@ -76,6 +78,7 @@
     "electron": "1.8.4",
     "electron-builder": "20.8.1",
     "electron-reload": "1.2.2",
+    "electron-rebuild": "^1.7.3",
     "fs-extra": "5.0.0",
     "jasmine-core": "2.99.1",
     "jasmine-spec-reporter": "4.2.1",

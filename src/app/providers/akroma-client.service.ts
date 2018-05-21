@@ -42,6 +42,7 @@ export class AkromaClientService {
   async initialize(callback: Function) {
     let settings;
     try {
+      console.log('HOME:!!!!' + this.es.app.getPath('userData'));
       this.client = clientConstants.clients.akroma.platforms[this.es.os.platform()][this.es.os.arch()];
       settings = await this.settingsService.db.get('system');
       console.log('settings', settings);

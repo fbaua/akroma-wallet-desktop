@@ -90,7 +90,7 @@ export class AkromaClientService {
     req.on('end', () => {
       console.log('end....' + this.es.os.platform());
       if (this.es.os.platform().toString() !== 'win32') {
-        this.es.fs.chmod(this.clientPath + this.es.path.sep + this.clientBin, this.es.fs.constants.S_IXUSR, err => {
+        this.es.fs.chmod(this.clientPath + this.es.path.sep + this.clientBin, this.es.fs.constants.S_IRWXU, err => {
           if (err) {
             callback(false, 'Akroma client could not be created as executable');
           }

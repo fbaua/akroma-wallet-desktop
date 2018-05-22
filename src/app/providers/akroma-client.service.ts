@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
-
-import * as extractZip from 'extract-zip';
 import { ChildProcess } from 'child_process';
 import * as request from 'request';
-
 import { clientConstants } from './akroma-client.constants';
 import { ElectronService } from './electron.service';
 import { SettingsPersistenceService } from './settings-persistence.service';
-import { SystemSettings } from '../models/system-settings';
 import { Web3Service } from './web3.service';
+
+
 
 export const statusConstants = {
   DOWNLOADING: 'downloading',
@@ -42,13 +40,8 @@ export class AkromaClientService {
   async initialize(callback: Function) {
     let settings;
     try {
-      // console.log('we have home here too:' + this.es.remote.app.getPath('home'));
       this.client = clientConstants.clients.akroma.platforms[this.es.os.platform()][this.es.os.arch()];
       settings = await this.settingsService.db.get('system');
-      console.log('settings from db', settings);
-      await this.settingsService.db.remove(settings);
-      console.log('removed settings');
-      settings = await this.defaultSettings();
     } catch {
       settings = await this.defaultSettings();
     } finally {

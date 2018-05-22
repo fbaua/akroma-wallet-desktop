@@ -4,25 +4,25 @@
     <div class="col">
       <div class="wallet-values-actions">
         <div class="total-wallets-value">
-          {{ allWalletsBalance || 0 }}
+          {{ allWalletsBalance || '0 AKA' }}
         </div>
       </div>
     </div>
     <div class="col">
       <div class="wallet-actions">
-        <a href="#" class="action">
+        <a class="action">
           <img src="./assets/images/icons/icon-sent.svg" alt="Send">
           Send
         </a>
-        <a href="#" class="action">
+        <a class="action">
           <img src="./assets/images/icons/icon-received.svg" alt="Receive">
           Receive
         </a>
-        <a href="#" class="action" [routerLink]="['/wallets']">
+        <a class="action" [routerLink]="['/wallets']">
           <img src="./assets/images/icons/icon-wallets.svg" alt="Wallets">
           Wallets
         </a>
-        <a href="#" class="action" [routerLink]="['/settings']">
+        <a class="action" [routerLink]="['/settings']">
           <img src="./assets/images/icons/icon-settings.svg" alt="">
           Settings
         </a>
@@ -33,8 +33,8 @@
     <div class="col">
       <div class="wallet-sorting-operations">
         <div class="new-wallet">
-          <a href="#" (click)="openModal(createWalletModal)">
-            <span><img src="./assets/images/icons/icon-new-wallet.svg" alt="new-wallet"> New Wallet</span>
+          <a (click)="openModal(createWalletModal)">
+              <img src="./assets/images/icons/icon-new-wallet.svg" alt="new-wallet"> New Wallet
           </a>
         </div>
       </div>
@@ -51,7 +51,7 @@
               </div>
             </div>
             <div class="wallet-detail">
-              <a href="#" [routerLink]="['/wallet', wallet.address]" style="text-decoration: none">
+              <a [routerLink]="['/wallet', wallet.address]" style="text-decoration: none">
               <div class="wallet-name">
                 {{ wallet.name }}
               </div>
@@ -111,7 +111,7 @@
 
 <!-- template for delete wallet context menu button -->
 <ng-template #deleteWalletContextButton let-wallet="wallet">
-  <a href="#" (click)="backupWalletReminder(wallet, deleteWalletConfirmModal)" style="text-decoration: none;">
+  <a (click)="backupWalletReminder(wallet, deleteWalletConfirmModal)" style="text-decoration: none;">
     Delete
   </a>
 </ng-template>

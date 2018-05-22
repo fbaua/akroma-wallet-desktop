@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-
-import { SettingsPersistenceService } from '../../providers/settings-persistence.service';
+import { Router } from '@angular/router';
 import { SystemSettings } from '../../models/system-settings';
+import { SettingsPersistenceService } from '../../providers/settings-persistence.service';
+
 
 @Component({
   selector: 'app-settings-page',
@@ -15,7 +16,10 @@ export class SettingsPageComponent implements OnInit {
   systemSettingsForm: FormGroup;
   storedSettings: SystemSettings;
 
-  constructor(private settingsService: SettingsPersistenceService, private fb: FormBuilder) {
+  constructor(
+    private settingsService: SettingsPersistenceService, 
+    private fb: FormBuilder,
+  private router: Router) {
     this.systemSettingsForm = this.fb.group({
       dataDirPath: '',
       syncMode: '',
@@ -49,5 +53,6 @@ export class SettingsPageComponent implements OnInit {
       const systemSettings = await this.settingsService.db.get('system');
       this.systemSettingsForm = this.fb.group(systemSettings);
       this.directoryInput.nativeElement.value = '';
+      this.router.navigate(['/wallets']);
   }
 }

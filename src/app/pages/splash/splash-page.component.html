@@ -9,9 +9,13 @@
           </progressbar>
         </div>
         <h3 class="title">{{ currentPercentage(isSyncing.currentBlock, isSyncing.highestBlock).toFixed(0) }}&#37;</h3>
+        <h3 class="title">Syncing block: {{ isSyncing.currentBlock }} of {{ isSyncing.highestBlock }}  </h3>
       </ng-container>
       <ng-container *ngIf="peerCount">
         <h3 class="title">{{ hexToInt(peerCount) }} Peer{{hexToInt(peerCount) > 1 ? 's' : ''}} Connected.</h3>
+      </ng-container>
+      <ng-container *ngIf="!peerCount">
+        <h3 class="title">Looking for peers.</h3>
       </ng-container>
     </ng-container>
     <h3 *ngIf="clientStatus == 'downloading'" class="title">Downloading Akroma Client.</h3>

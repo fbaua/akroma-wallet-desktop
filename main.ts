@@ -1,4 +1,4 @@
-import { app, BrowserWindow, screen } from 'electron';
+import { BrowserWindow, app, screen } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 import { AppConfig } from './src/app/app.config';
@@ -26,6 +26,7 @@ function createWindow() {
     height: size.height,
     backgroundColor: '#cb2027',
   });
+  win.setMenu(null);
 
   if (serve) {
     require('electron-reload')(__dirname, {

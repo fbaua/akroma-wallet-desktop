@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-
 import { TranslateService } from '@ngx-translate/core';
-
 import { AppConfig } from './app.config';
-import { ElectronService } from './providers/electron.service';
 import { AkromaClientService } from './providers/akroma-client.service';
+import { ElectronService } from './providers/electron.service';
+
+
 
 @Component({
   selector: 'app-root',
@@ -24,6 +24,7 @@ export class AppComponent {
       console.log('Electron ipcRenderer', electronService.ipcRenderer);
       console.log('NodeJS childProcess', electronService.childProcess);
       console.log('NodeJS os', electronService.os);
+      console.log('UserData', electronService.remote.app.getPath('home'));
       this.akromaClientService.initialize(res => {
         this.akromaClientService.downloadClient(success => {
           if (success) {

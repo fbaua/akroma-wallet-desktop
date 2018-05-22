@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { WalletListComponent } from './components/wallet-list/wallet-list.component';
 import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
 import { SplashComponent } from './pages/splash/splash-page.component';
@@ -22,6 +22,7 @@ const routes: Routes = [
         path: '',
         component: SplashComponent,
     },
+    { path: '**', redirectTo: 'wallets' },
 ];
 
 @NgModule({

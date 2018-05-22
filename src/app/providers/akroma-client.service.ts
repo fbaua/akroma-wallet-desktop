@@ -112,7 +112,7 @@ export class AkromaClientService {
       // tslint:disable-next-line:no-console
       console.info('[Starting Akroma client...]');
       const process = this.es.childProcess.spawn(this.clientPath + this.es.path.sep + this.clientBin, [
-        '--datadir', this.clientPath, '--syncmode', this.syncMode,
+        '--datadir', this.clientPath + this.es.path.sep + 'data', '--syncmode', this.syncMode,
         '--cache', '1024', '--rpc', '--rpccorsdomain', '*', '--rpcport', '8545', '--rpcapi', 'eth,web3,admin,net,personal,db',
       ]);
       this._process = process;

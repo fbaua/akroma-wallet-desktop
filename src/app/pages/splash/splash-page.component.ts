@@ -13,7 +13,6 @@ import 'rxjs/add/observable/of';
 import { Web3Service } from '../../providers/web3.service';
 import { AkromaClientService, statusConstants } from '../../providers/akroma-client.service';
 import { clientConstants } from '../../providers/akroma-client.constants';
-import { ElectronService } from '../../providers/electron.service';
 
 // such override allows to keep some initial values
 export function getProgressbarConfig(): ProgressbarConfig {
@@ -39,8 +38,7 @@ export class SplashComponent implements OnDestroy, OnInit {
 
   constructor(private web3: Web3Service,
               private router: Router,
-              private clientService: AkromaClientService,
-              private electronService: ElectronService) {
+              private clientService: AkromaClientService) {
     this.web3.setProvider(new this.web3.providers.HttpProvider(clientConstants.connection.default));
     this.lastPercentageSynced = 0;
     this.clientStatus = '';

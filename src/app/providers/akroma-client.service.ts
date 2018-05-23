@@ -114,7 +114,7 @@ export class AkromaClientService {
       const process = this.es.childProcess.spawn(this.clientPath + this.es.path.sep + this.clientBin, [
         '--datadir', this.clientPath + this.es.path.sep + 'data', '--syncmode', this.syncMode,
         '--cache', '1024', '--rpc', '--rpccorsdomain', '*', '--rpcport', '8545', '--rpcapi', 'eth,web3,admin,net,personal,db',
-      ]);
+      ], { stdio: 'ignore' });
       this._process = process;
       this._status = statusConstants.RUNNING;
       return process;

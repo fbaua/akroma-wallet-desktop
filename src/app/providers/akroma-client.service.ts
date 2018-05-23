@@ -134,7 +134,7 @@ export class AkromaClientService {
         '--rpccorsdomain', '*',
         '--rpcport', '8545',
         '--rpcapi', 'eth,web3,admin,net,personal,db',
-      ]);
+      ], { stdio: 'ignore' });
       this._process = clientProcess;
       this._status = statusConstants.RUNNING;
       return clientProcess;

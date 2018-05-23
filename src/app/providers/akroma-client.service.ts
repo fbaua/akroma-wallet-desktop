@@ -136,6 +136,7 @@ export class AkromaClientService {
         '--rpcapi', 'eth,web3,admin,net,personal,db',
       ], { stdio: 'ignore' });
       this._process = clientProcess;
+      this.es.ipcRenderer.send('client:start', this.clientProcess.pid);
       this._status = statusConstants.RUNNING;
       return clientProcess;
     }

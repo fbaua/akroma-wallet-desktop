@@ -56,7 +56,6 @@ export class SplashComponent implements OnDestroy, OnInit {
         return;
       }
       if (status === statusConstants.RUNNING) {
-        this.electronService.ipcRenderer.send('client:start', this.clientService.clientProcess.pid);
         this.startSyncingSubscriptions();
         this.clientStatusSubscription.unsubscribe();
       }

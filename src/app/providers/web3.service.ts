@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { SettingsPersistenceService } from './settings-persistence.service';
 import { ElectronService } from './electron.service';
+import { SettingsPersistenceService } from './settings-persistence.service';
 
 declare var require: any;
 const Web3 = require('web3');
@@ -15,7 +15,7 @@ export class Web3Service extends ( Web3 as { new(): any; }  ) {
 
     connectIpc() {
         this.settingsService.db.get('system').then(doc => {
-            this.setProvider(this.providers.IpcProvider(`${doc.dataDirPath}/.akroma/geth.ipc`, this.electronService.net));
+            this.setProvider(this.providers.IpcProvider(`${doc.clientPath}/data/geth.ipc`, this.electronService.net));
         });
     }
 }

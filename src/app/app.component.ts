@@ -2,9 +2,8 @@ import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AppConfig } from './app.config';
 import { AkromaClientService } from './providers/akroma-client.service';
+import { AkromaLoggerService } from './providers/akroma-logger.service';
 import { ElectronService } from './providers/electron.service';
-
-
 
 @Component({
   selector: 'app-root',
@@ -12,7 +11,9 @@ import { ElectronService } from './providers/electron.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(public electronService: ElectronService,
+  constructor(
+    private logger: AkromaLoggerService,
+    public electronService: ElectronService,
     private translate: TranslateService,
     private akromaClientService: AkromaClientService) {
 
@@ -23,15 +24,20 @@ export class AppComponent {
       console.log('Mode electron');
       console.log('Electron ipcRenderer', electronService.ipcRenderer);
       console.log('NodeJS childProcess', electronService.childProcess);
-      console.log('NodeJS os', electronService.os);
-      console.log('UserData', electronService.remote.app.getPath('home'));
-      this.akromaClientService.initialize(res => {
+      this.logger.init(cb => this.akromaClientService.initialize(res => {
+        logger.info('[os]: ' + electronService.os.platform);
+        logger.info('[arch]: ' + electronService.os.arch);
+        logger.info('[homedir]: ' + electronService.os.homedir);
+        logger.info('[appPath]: ' + electronService.remote.app.getAppPath());
+        logger.info('[userData]: ' + electronService.remote.app.getPath('userData'));
+        logger.info('[locale]: ' + electronService.remote.app.getLocale());
         this.akromaClientService.downloadClient(success => {
           if (success) {
             this.akromaClientService.startClient();
           }
         });
-      });
+      })
+      );
     } else {
       console.log('Mode web');
     }

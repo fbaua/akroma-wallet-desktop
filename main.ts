@@ -3,6 +3,7 @@ import * as path from 'path';
 import * as url from 'url';
 import { AppConfig } from './src/app/app.config';
 
+
 let win, serve;
 const args = process.argv.slice(1);
 serve = args.some(val => val === '--serve');
@@ -22,8 +23,8 @@ function createWindow() {
   win = new BrowserWindow({
     x: 0,
     y: 0,
-    width: size.width,
-    height: size.height,
+    width: 800,
+    height: 600,
     backgroundColor: '#cb2027',
   });
   win.setMenu(null);

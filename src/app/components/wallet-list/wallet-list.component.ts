@@ -14,10 +14,7 @@ import { SettingsPersistenceService } from '../../providers/settings-persistence
 import { WalletPersistenceService } from '../../providers/wallet-persistence.service';
 import { Web3Service } from '../../providers/web3.service';
 
-const electron = window.require('electron')
-
-
-
+const electron = window.require('electron');
 
 @Component({
   selector: 'app-wallet-list',
@@ -45,6 +42,7 @@ export class WalletListComponent implements OnInit {
   }
 
   async ngOnInit() {
+
     const subscription = IntervalObservable.create(5000)
     .pipe(mergeMap((i) => Observable.fromPromise(this.web3.eth.personal.getAccounts())))
     .pipe(retry(10))
@@ -93,7 +91,7 @@ export class WalletListComponent implements OnInit {
 
   async deleteWallet(wallet: Wallet) {
     const systemSettings = await this.settingsService.db.get('system');
-    const keystoreFileDir = `${systemSettings.dataDirPath}/.akroma/keystore`;
+    const keystoreFileDir = `${systemSettings.clientPath}/data/keystore`;
     const keystoreFileList = this.electronService.fs.readdirSync(keystoreFileDir);
     const keystoreFile = keystoreFileList.find(x => x.toLowerCase().includes(wallet.address.replace('0x', '').toLowerCase()));
     if (keystoreFile) {
@@ -121,7 +119,7 @@ export class WalletListComponent implements OnInit {
 
   async backupWallet(wallet: Wallet) {
     const systemSettings = await this.settingsService.db.get('system');
-    const keystoreFileDir = `${systemSettings.dataDirPath}/.akroma/keystore`;
+    const keystoreFileDir = `${systemSettings.clientPath}/data/keystore`;
     const keystoreFileList = await this.electronService.fs.readdirSync(keystoreFileDir);
     const keystoreFile = keystoreFileList.find(x => x.toLowerCase().includes(wallet.address.replace('0x', '').toLowerCase()));
     if (keystoreFile) {

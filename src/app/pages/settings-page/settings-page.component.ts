@@ -17,11 +17,11 @@ export class SettingsPageComponent implements OnInit {
   storedSettings: SystemSettings;
 
   constructor(
-    private settingsService: SettingsPersistenceService, 
+    private settingsService: SettingsPersistenceService,
     private fb: FormBuilder,
-  private router: Router) {
+    private router: Router) {
     this.systemSettingsForm = this.fb.group({
-      dataDirPath: '',
+      clientPath: '',
       syncMode: '',
       _id: 'system',
     });
@@ -37,8 +37,8 @@ export class SettingsPageComponent implements OnInit {
   onDirectoryPathChange(event: any) {
     const files = event.srcElement.files;
     if (files.length > 0) {
-      this.systemSettingsForm.get('dataDirPath').setValue(files['0'].path);
-      this.systemSettingsForm.get('dataDirPath').markAsDirty();
+      this.systemSettingsForm.get('clientPath').setValue(files['0'].path);
+      this.systemSettingsForm.get('clientPath').markAsDirty();
     }
   }
 
@@ -50,9 +50,9 @@ export class SettingsPageComponent implements OnInit {
   }
 
   async onRevert() {
-      const systemSettings = await this.settingsService.db.get('system');
-      this.systemSettingsForm = this.fb.group(systemSettings);
-      this.directoryInput.nativeElement.value = '';
-      this.router.navigate(['/wallets']);
+    const systemSettings = await this.settingsService.db.get('system');
+    this.systemSettingsForm = this.fb.group(systemSettings);
+    this.directoryInput.nativeElement.value = '';
+    this.router.navigate(['/wallets']);
   }
 }

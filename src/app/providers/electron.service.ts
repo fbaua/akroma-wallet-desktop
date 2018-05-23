@@ -5,10 +5,10 @@ import * as crypto from 'crypto';
 // the resulting javascript file will look as if you never imported the module at all.
 import { ipcRenderer, remote, webFrame } from 'electron';
 import * as fs from 'fs';
+import * as net from 'net';
 import * as os from 'os';
 import * as path from 'path';
 import * as process from 'process';
-import * as net from 'net';
 
 
 @Injectable()
@@ -31,7 +31,6 @@ export class ElectronService {
       this.ipcRenderer = window.require('electron').ipcRenderer;
       this.webFrame = window.require('electron').webFrame;
       this.remote = window.require('electron').remote;
-
       this.childProcess = window.require('child_process');
       this.fs = window.require('fs');
       this.os = window.require('os');

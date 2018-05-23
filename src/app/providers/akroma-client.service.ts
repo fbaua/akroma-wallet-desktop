@@ -64,7 +64,7 @@ export class AkromaClientService {
     this.logger.debug('loading default settings');
     const saveMe = {
       _id: 'system',
-      clientPath: this.es.path.join(this.es.process.env.HOME + this.client.extract_path),
+      clientPath: this.es.path.join(this.es.os.homedir + this.client.extract_path),
       applicationPath: this.es.remote.app.getPath('userData'),
       syncMode: 'fast',
     };

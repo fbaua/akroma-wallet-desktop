@@ -19,7 +19,7 @@ export class SettingsPageComponent implements OnInit {
   constructor(
     private settingsService: SettingsPersistenceService,
     private fb: FormBuilder,
-  private router: Router) {
+    private router: Router) {
     this.systemSettingsForm = this.fb.group({
       clientPath: '',
       syncMode: '',
@@ -50,9 +50,9 @@ export class SettingsPageComponent implements OnInit {
   }
 
   async onRevert() {
-      const systemSettings = await this.settingsService.db.get('system');
-      this.systemSettingsForm = this.fb.group(systemSettings);
-      this.directoryInput.nativeElement.value = '';
-      this.router.navigate(['/wallets']);
+    const systemSettings = await this.settingsService.db.get('system');
+    this.systemSettingsForm = this.fb.group(systemSettings);
+    this.directoryInput.nativeElement.value = '';
+    this.router.navigate(['/wallets']);
   }
 }

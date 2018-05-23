@@ -5,10 +5,10 @@ import * as crypto from 'crypto';
 // the resulting javascript file will look as if you never imported the module at all.
 import { ipcRenderer, remote, webFrame } from 'electron';
 import * as fs from 'fs';
+import * as net from 'net';
 import * as os from 'os';
 import * as path from 'path';
 import * as process from 'process';
-import * as net from 'net';
 
 
 @Injectable()

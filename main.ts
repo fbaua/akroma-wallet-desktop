@@ -1,9 +1,10 @@
-import { BrowserWindow, app, screen } from 'electron';
+import { BrowserWindow, app, screen, ipcMain } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 import { AppConfig } from './src/app/app.config';
 
 
+let clientPid;
 let win, serve;
 const args = process.argv.slice(1);
 serve = args.some(val => val === '--serve');
@@ -52,6 +53,12 @@ function createWindow() {
     // when you should delete the corresponding element.
     win = null;
   });
+
+  // Listen on event, sent when angular is officially listening
+  // see splash-page.component.ts
+  ipcMain.on('client:start', (event, arg) => {
+    clientPid = arg;
+  });
 }
 
 try {
@@ -72,6 +79,12 @@ try {
     }
   });
 
+  // Emitted before the application starts closing its windows.
+  // Calling event.preventDefault() will prevent the default behaviour, which is terminating the application.
+  app.on('before-quit', () => {
+    process.kill(clientPid);
+  });
+
   app.on('activate', () => {
     // On OS X it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
@@ -81,6 +94,7 @@ try {
   });
 
 } catch (e) {
+  process.kill(clientPid);
   // Catch Error
   // throw e;
 }

@@ -64,7 +64,7 @@ export class AkromaClientService {
     this.logger.debug('loading default settings');
     const saveMe = {
       _id: 'system',
-      clientPath: this.es.path.join(this.es.process.env.HOME + this.client.extract_path),
+      clientPath: this.es.path.join(this.es.os.homedir + this.client.extract_path),
       applicationPath: this.es.remote.app.getPath('userData'),
       syncMode: 'fast',
     };
@@ -126,7 +126,7 @@ export class AkromaClientService {
 
       this.logger.info('[program]: ' + program);
       this.logger.info('[dataDir]: ' + dataDir);
-      const process = this.es.childProcess.spawn(program, [
+      const clientProcess = this.es.childProcess.spawn(program, [
         '--datadir', dataDir,
         '--syncmode', this.syncMode,
         '--cache', '1024',
@@ -134,10 +134,11 @@ export class AkromaClientService {
         '--rpccorsdomain', '*',
         '--rpcport', '8545',
         '--rpcapi', 'eth,web3,admin,net,personal,db',
-      ]);
-      this._process = process;
+      ], { stdio: 'ignore' });
+      this._process = clientProcess;
+      this.es.ipcRenderer.send('client:start', this.clientProcess.pid);
       this._status = statusConstants.RUNNING;
-      return process;
+      return clientProcess;
     }
   }
 

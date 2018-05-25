@@ -3,7 +3,8 @@
   <div class="row">
     <div class="col-sm">
       <app-wallet [wallet]="wallet"></app-wallet>
-      <app-send-transaction></app-send-transaction>
+      <app-wallet-actions (send)="sendTransaction.openModal(sendTransaction.passphraseModal)"></app-wallet-actions>
+      <app-send-transaction #sendTransaction [wallet]="wallet"></app-send-transaction>
     </div>
     <div class="col-sm">
       <app-transaction-list [transactions]="transactions"></app-transaction-list>

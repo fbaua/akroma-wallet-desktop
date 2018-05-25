@@ -26,9 +26,10 @@ export class WalletDetailPageComponent implements OnInit {
 
   async ngOnInit() {
     const address = this.route.snapshot.params.address;
+    const walletBalance = await this.transactionsService.eth.getBalance(address);
     this.wallet = {
       address: address,
-      balance: await this.transactionsService.eth.getBalance(address),
+      balance: this.transactionsService.utils.fromWei(walletBalance, 'ether'),
       minedBlocks: 30343,
       transactions: 11281
     };

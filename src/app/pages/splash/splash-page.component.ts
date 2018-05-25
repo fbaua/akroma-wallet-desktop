@@ -13,6 +13,7 @@ import 'rxjs/add/observable/of';
 import { Web3Service } from '../../providers/web3.service';
 import { AkromaClientService, statusConstants } from '../../providers/akroma-client.service';
 import { clientConstants } from '../../providers/akroma-client.constants';
+import { BlockSync } from '../../models/block-sync';
 
 // such override allows to keep some initial values
 export function getProgressbarConfig(): ProgressbarConfig {
@@ -28,7 +29,7 @@ export function getProgressbarConfig(): ProgressbarConfig {
 export class SplashComponent implements OnDestroy, OnInit {
   clientStatus: string;
   lastPercentageSynced: number;
-  isSyncing: boolean | any;
+  isSyncing: boolean | BlockSync;
   isListening: boolean;
   peerCount: number;
   clientStatusSubscription: ISubscription;
@@ -61,6 +62,7 @@ export class SplashComponent implements OnDestroy, OnInit {
   }
 
   private startSyncingSubscriptions(): void {
+    let lastSynced: BlockSync = JSON.parse(localStorage.getItem('lastSynced'));
     this.isListeningSubscription = IntervalObservable.create(2000)
     .pipe(mergeMap((i) => Observable.fromPromise(this.web3.eth.net.isListening())))
     .pipe(retry(10))
@@ -72,18 +74,23 @@ export class SplashComponent implements OnDestroy, OnInit {
     this.isSyncingSubscription = IntervalObservable.create(1000)
     .pipe(mergeMap((i) => Observable.fromPromise(this.web3.eth.isSyncing())))
     .pipe(retry(10))
-    .subscribe((result: boolean | any) => {
+    .subscribe((result: boolean | BlockSync) => {
       console.log('is syncing:' + JSON.stringify(result));
       if (this.isListening) {
         this.isSyncing = result;
         if (!!result) {
-          console.log('currentBlock:' + result.currentBlock + ' highestBlock:' + result.highestBlock);
-          this.lastPercentageSynced = this.currentPercentage(result.currentBlock, result.highestBlock);
+          lastSynced = <BlockSync> result;
+          console.log('currentBlock:' + lastSynced.currentBlock + ' highestBlock:' + lastSynced.highestBlock);
+        }
+        if (!!lastSynced) {
+          localStorage.setItem('lastSynced', JSON.stringify(lastSynced));
+          console.log('currentBlock:' + lastSynced.currentBlock + ' highestBlock:' + lastSynced.highestBlock);
+          this.lastPercentageSynced = this.currentPercentage(lastSynced.currentBlock, lastSynced.highestBlock);
         }
         console.log(result);
         console.log(this.lastPercentageSynced);
         console.log((this.lastPercentageSynced || 0).toFixed(0));
-        if (result === false && (this.lastPercentageSynced || 0).toFixed(0) === '100') {
+        if (result === false && this.lastPercentageSynced >= 98) {
           // Nav away here
           console.log('nav away...');
           // If user has not set up a wallet yet, send them to create / import wallet
@@ -103,8 +110,8 @@ export class SplashComponent implements OnDestroy, OnInit {
     });
   }
 
-  currentPercentage(currentBlock: string, highestBlock: string): number {
-    return (parseInt(currentBlock, 10) / parseInt(highestBlock, 10)) * 100;
+  currentPercentage(currentBlock: number, highestBlock: number): number {
+    return currentBlock / highestBlock * 100;
   }
 
   hexToInt(hexValue: string): number {

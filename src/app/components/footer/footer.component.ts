@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SystemSettings } from '../../models/system-settings';
 import { ElectronService } from '../../providers/electron.service';
 import { SettingsPersistenceService } from '../../providers/settings-persistence.service';
+import { AkromaClientService } from '../../providers/akroma-client.service';
 
 @Component({
   selector: 'app-footer',
@@ -13,12 +14,17 @@ export class FooterComponent implements OnInit {
   private settings: SystemSettings;
 
   constructor(
+    private clientService: AkromaClientService,
     private electronService: ElectronService,
     private settingsService: SettingsPersistenceService
   ) { }
 
   async ngOnInit() {
-    this.settings = await this.settingsService.db.get('system');
+    try {
+      this.settings = await this.settingsService.db.get('system');
+    } catch {
+      this.settings = await this.clientService.defaultSettings();
+    }
   }
 
   viewLogs() {

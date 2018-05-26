@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { SystemSettings } from '../../models/system-settings';
 import { ElectronService } from '../../providers/electron.service';
 import { SettingsPersistenceService } from '../../providers/settings-persistence.service';
+import { AkromaClientService } from '../../providers/akroma-client.service';
 import { Web3Service } from '../../providers/web3.service';
 
 @Component({
@@ -19,13 +20,18 @@ export class FooterComponent implements OnInit {
   private settings: SystemSettings;
 
   constructor(
+    private clientService: AkromaClientService,
     private web3: Web3Service,
     private electronService: ElectronService,
     private settingsService: SettingsPersistenceService
   ) { }
 
   async ngOnInit() {
-    this.settings = await this.settingsService.db.get('system');
+    try {
+      this.settings = await this.settingsService.db.get('system');
+    } catch {
+      this.settings = await this.clientService.defaultSettings();
+    }
     setInterval(() => {
       this.blockNumber$ = Observable.fromPromise(this.web3.eth.getBlockNumber());
       this.listening$ = Observable.fromPromise(this.web3.eth.net.isListening());

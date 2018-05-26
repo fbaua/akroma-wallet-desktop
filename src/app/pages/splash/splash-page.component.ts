@@ -99,6 +99,7 @@ export class SplashComponent implements OnDestroy, OnInit {
             ...lastSynced,
             ...<BlockSync> result,
           };
+
           console.log('currentBlock:' + lastSynced.currentBlock + ' highestBlock:' + lastSynced.highestBlock);
         }
         if (!!lastSynced) {

@@ -10,8 +10,8 @@ export class TransactionListComponent implements OnInit {
   @Input() transactions: Transaction[];
 
   timestamp: string = new Date().toLocaleDateString('en-GB', { timeZone: 'UTC' });
-  p: number = 1;
-  filter: string = 'all';  
+  p = 1;
+  filter = 'all';
 
   constructor() { }
 
@@ -19,7 +19,7 @@ export class TransactionListComponent implements OnInit {
   }
 
   setFilter(filterType: string) {
-    switch(filterType) {
+    switch (filterType) {
       case 'all':
         this.filter = 'all';
         break;

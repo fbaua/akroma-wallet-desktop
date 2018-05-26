@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
+import PouchDB from 'pouchdb';
 import { ProgressbarConfig } from 'ngx-bootstrap/progressbar';
 
 import { ISubscription } from 'rxjs/Subscription';
@@ -36,6 +37,7 @@ export class SplashComponent implements OnDestroy, OnInit {
   isListeningSubscription: ISubscription;
   isSyncingSubscription: ISubscription;
   peerCountSubscription: ISubscription;
+  private blockSyncStore: PouchDB.Database<BlockSync>;
 
   constructor(private web3: Web3Service,
               private router: Router,
@@ -43,6 +45,7 @@ export class SplashComponent implements OnDestroy, OnInit {
     this.web3.setProvider(new this.web3.providers.HttpProvider(clientConstants.connection.default));
     this.lastPercentageSynced = 0;
     this.clientStatus = '';
+    this.blockSyncStore = new PouchDB('lastBlockSynced');
   }
 
   ngOnInit() {
@@ -61,8 +64,21 @@ export class SplashComponent implements OnDestroy, OnInit {
     });
   }
 
-  private startSyncingSubscriptions(): void {
-    let lastSynced: BlockSync = JSON.parse(localStorage.getItem('lastSynced'));
+  private async startSyncingSubscriptions(): Promise<void> {
+    let lastSynced: BlockSync;
+    try {
+      lastSynced = await this.blockSyncStore.get('lastSynced');
+    } catch {
+      await this.blockSyncStore.put({
+        _id: 'lastSynced',
+        currentBlock: 0,
+        highestBlock: 0,
+        knownStates: 0,
+        pulledStates: 0,
+        startingBlock: 0,
+      });
+      lastSynced = await this.blockSyncStore.get('lastSynced');
+    }
     this.isListeningSubscription = IntervalObservable.create(2000)
     .pipe(mergeMap((i) => Observable.fromPromise(this.web3.eth.net.isListening())))
     .pipe(retry(10))
@@ -74,16 +90,23 @@ export class SplashComponent implements OnDestroy, OnInit {
     this.isSyncingSubscription = IntervalObservable.create(1000)
     .pipe(mergeMap((i) => Observable.fromPromise(this.web3.eth.isSyncing())))
     .pipe(retry(10))
-    .subscribe((result: boolean | BlockSync) => {
+    .subscribe(async (result: boolean | BlockSync) => {
       console.log('is syncing:' + JSON.stringify(result));
       if (this.isListening) {
         this.isSyncing = result;
         if (!!result) {
-          lastSynced = <BlockSync> result;
+          lastSynced = {
+            ...lastSynced,
+            ...<BlockSync> result,
+          };
           console.log('currentBlock:' + lastSynced.currentBlock + ' highestBlock:' + lastSynced.highestBlock);
         }
         if (!!lastSynced) {
-          localStorage.setItem('lastSynced', JSON.stringify(lastSynced));
+          await this.blockSyncStore.put({
+            ...lastSynced,
+          });
+          lastSynced = await this.blockSyncStore.get('lastSynced');
+
           console.log('currentBlock:' + lastSynced.currentBlock + ' highestBlock:' + lastSynced.highestBlock);
           this.lastPercentageSynced = this.currentPercentage(lastSynced.currentBlock, lastSynced.highestBlock);
         }
